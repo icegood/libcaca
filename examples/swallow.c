@@ -100,7 +100,7 @@ int main(int argc, char **argv)
             else if(bytes[i] == 0)
             {
                 buf[i] = realloc(buf[i], total[i] + 128);
-                fread(buf[i] + total[i], 128, 1, f[i]);
+                (void)fread(buf[i] + total[i], 128, 1, f[i]);
                 total[i] += 128;
             }
             else

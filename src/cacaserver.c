@@ -242,7 +242,7 @@ restart:
         /* Read data from stdin */
         if(server->read < 12)
         {
-            read(0, server->input + server->read, 12 - server->read);
+            (void)read(0, server->input + server->read, 12 - server->read);
             server->read = 12;
         }
 
@@ -250,7 +250,7 @@ restart:
                                              server->read, "caca") < 0)
         {
             memmove(server->input, server->input + 1, server->read - 1);
-            read(0, server->input + server->read - 1, 1);
+            (void)read(0, server->input + server->read - 1, 1);
         }
 
         for(;;)

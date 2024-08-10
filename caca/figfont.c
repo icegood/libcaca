@@ -147,7 +147,7 @@ int caca_set_figfont_smush(caca_canvas_t *cv, char const *mode)
 int caca_put_figchar(caca_canvas_t *cv, uint32_t ch)
 {
     caca_charfont_t *ff = cv->ff;
-    int c, w, h, x, y, overlap, extra, xleft, xright;
+    int c, w, h, x, y, overlap, xleft, xright;
 
     if (!ff)
         return -1;
@@ -190,7 +190,6 @@ int caca_put_figchar(caca_canvas_t *cv, uint32_t ch)
     case H_SMUSH:
     case H_KERN:
     case H_OVERLAP:
-        extra = (ff->hmode == H_OVERLAP);
         overlap = w;
         for(y = 0; y < h; y++)
         {

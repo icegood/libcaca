@@ -459,7 +459,7 @@ int caca_get_canvas_handle_y(caca_canvas_t const *cv)
 int caca_blit(caca_canvas_t *dst, int x, int y,
               caca_canvas_t const *src, caca_canvas_t const *mask)
 {
-    int i, j, starti, startj, endi, endj, stride, bleed_left, bleed_right;
+    int i, j, starti, startj, endi, endj, stride;
 
     if(mask && (src->width != mask->width || src->height != mask->height))
     {
@@ -480,8 +480,6 @@ int caca_blit(caca_canvas_t *dst, int x, int y,
         || starti >= endi || startj >= endj)
         return 0;
 
-    bleed_left = bleed_right = 0;
-
     for(j = startj; j < endj; j++)
     {
         int dstix = (j + y) * dst->width + starti + x;
@@ -491,14 +489,12 @@ int caca_blit(caca_canvas_t *dst, int x, int y,
         if((starti + x) && dst->chars[dstix] == CACA_MAGIC_FULLWIDTH)
         {
             dst->chars[dstix - 1] = ' ';
-            bleed_left = 1;
         }
 
         if(endi + x < dst->width
                 && dst->chars[dstix + stride] == CACA_MAGIC_FULLWIDTH)
         {
             dst->chars[dstix + stride] = ' ';
-            bleed_right = 1;
         }
 
         if(mask)

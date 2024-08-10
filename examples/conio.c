@@ -591,7 +591,7 @@ void makeMove(int who, int x, int xsquare[Y_BOARD][X_BOARD])
     xsquare[y-1][x] = BASE;
 }
 
-void sorting(int n[])
+void sorting(int n[X_BOARD])
 {
   int i, j, alpha;
   int store[X_BOARD];
