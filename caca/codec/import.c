@@ -298,7 +298,6 @@ static ssize_t import_caca(caca_canvas_t *cv, void const *data, size_t size)
     uint8_t const *buf = (uint8_t const *)data;
     size_t control_size, data_size, expected_size;
     unsigned int frames, f, n, offset;
-    uint16_t version, flags;
     int32_t xmin = 0, ymin = 0, xmax = 0, ymax = 0;
 
     if(size < 20)
@@ -312,9 +311,9 @@ static ssize_t import_caca(caca_canvas_t *cv, void const *data, size_t size)
 
     control_size = sscanu32(buf + 4);
     data_size = sscanu32(buf + 8);
-    version = sscanu16(buf + 12);
+    sscanu16(buf + 12);
     frames = sscanu32(buf + 14);
-    flags = sscanu16(buf + 18);
+    sscanu16(buf + 18);
 
     if(size < 4 + control_size + data_size)
         return 0;
@@ -328,16 +327,15 @@ static ssize_t import_caca(caca_canvas_t *cv, void const *data, size_t size)
 
     for(expected_size = 0, f = 0; f < frames; f++)
     {
-        unsigned int width, height, duration;
-        uint32_t attr;
-        int x, y, handlex, handley;
+        unsigned int width, height;
+        int handlex, handley;
 
         width = sscanu32(buf + 4 + 16 + f * 32);
         height = sscanu32(buf + 4 + 16 + f * 32 + 4);
-        duration = sscanu32(buf + 4 + 16 + f * 32 + 8);
-        attr = sscanu32(buf + 4 + 16 + f * 32 + 12);
-        x = (int32_t)sscanu32(buf + 4 + 16 + f * 32 + 16);
-        y = (int32_t)sscanu32(buf + 4 + 16 + f * 32 + 20);
+        (void)sscanu32(buf + 4 + 16 + f * 32 + 8);
+        (void)sscanu32(buf + 4 + 16 + f * 32 + 12);
+        (void)sscanu32(buf + 4 + 16 + f * 32 + 16);
+        (void)sscanu32(buf + 4 + 16 + f * 32 + 20);
         handlex = (int32_t)sscanu32(buf + 4 + 16 + f * 32 + 24);
         handley = (int32_t)sscanu32(buf + 4 + 16 + f * 32 + 28);
         expected_size += width * height * 8;

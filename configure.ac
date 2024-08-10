@@ -373,7 +373,12 @@ AC_SUBST(GL_CFLAGS)
 AC_SUBST(GL_LIBS)
 
 # Optimizations
-CFLAGS="${CFLAGS} -g -O2 -fno-strength-reduce -fomit-frame-pointer"
+if test "${enable_debug}" = "yes"; then
+    CFLAGS="${CFLAGS} -g -fno-strength-reduce"
+else
+    CFLAGS="${CFLAGS} -O2 -fomit-frame-pointer"
+fi
+
 # Code qui fait des warnings == code de porc == deux baffes dans ta gueule
 CFLAGS="${CFLAGS} -Wall -Wpointer-arith -Wcast-align -Wcast-qual -Wstrict-prototypes -Wshadow -Waggregate-return -Wmissing-prototypes -Wnested-externs -Wsign-compare"
 CXXFLAGS="${CXXFLAGS} -Wall -Wpointer-arith -Wcast-align -Wcast-qual -Wshadow -Wsign-compare"

@@ -182,12 +182,10 @@ gentable (void)
 static void
 firemain (void)
 {
-  register unsigned int i;
   unsigned char *p;
 #ifndef LIBCACA
   char *bitmap = aa_image (context);
 #endif
-  i = 0;
 #define END (bitmap + XSIZ * YSIZ)
   for (p = (unsigned char*)bitmap;
        (char*)p <= (( char *) (END));

@@ -209,9 +209,9 @@ static inline void rgb2hsv_default(int r, int g, int b,
 {
     int min, max, delta;
 
-    min = r; max = r;
-    if(min > g) min = g; if(max < g) max = g;
-    if(min > b) min = b; if(max < b) max = b;
+    min = (r < g ? (r < b ? r : b) : (g < b ? g : b));
+    max = (r > g ? (r > b ? r : b) : (g > b ? g : b));
+
 
     delta = max - min; /* 0 - 0xfff */
     *val = max; /* 0 - 0xfff */
@@ -943,7 +943,7 @@ int caca_dither_bitmap(caca_canvas_t *cv, int x, int y, int w, int h,
     int *floyd_steinberg, *fs_r, *fs_g, *fs_b;
     uint32_t savedattr;
     int fs_length;
-    int x1, y1, x2, y2, pitch, deltax, deltay, dchmax;
+    int x1, y1, x2, y2, deltax, deltay, dchmax;
 
     if(!d || !pixels)
         return 0;
@@ -956,7 +956,6 @@ int caca_dither_bitmap(caca_canvas_t *cv, int x, int y, int w, int h,
     /* FIXME: do not overwrite arguments */
     w = d->w;
     h = d->h;
-    pitch = d->pitch;
 
     deltax = x2 - x1 + 1;
     deltay = y2 - y1 + 1;
